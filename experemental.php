@@ -10,3 +10,9 @@ $tb = new ThinBuilder([
 		"user" => "root",
 		"password" => ""
 	]);
+
+$res = $tb -> select('users', [], [
+	['name', 'IN', ['John', 'Eugene']]
+], ['id'], 'ASC', [0, 10]);
+
+dd($res);
