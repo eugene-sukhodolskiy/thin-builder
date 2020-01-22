@@ -11,8 +11,10 @@ $tb = new ThinBuilder([
 		"password" => ""
 	]);
 
+// dd($tb -> insert('users', ['name' => 'Victor', 'email' => 'victor@gmail.com', 'timestamp' => 'NOW()']));
+
 $res = $tb -> select('users', [], [
-	['name', 'IN', ['John', 'Eugene']]
+	['name', 'IN', ['John', "Eugene"]]
 ], ['id'], 'ASC', [0, 10]);
 
 dd($res);

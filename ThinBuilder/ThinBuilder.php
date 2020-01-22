@@ -3,25 +3,22 @@
 namespace ThinBuilder;
 
 class ThinBuilder{
-	protected $connect;
+	protected $pdo;
 	protected $db_config;
 
 	public function __construct($db_config){
 		$this -> db_config = $db_config;
-		$this -> connect = $this -> create_connect($this -> db_config);
+		$this -> pdo = $this -> create_connect($this -> db_config);
 	}
 
 	public function create_connect($db_conf){
 		$dblib = "{$db_conf['dblib']}:host={$db_conf['host']};dbname={$db_conf['dbname']};charset={$db_conf['charset']}";
-		$connect = new \PDO($dblib, $db_conf['user'], $db_conf['password']);
-		return $connect;
+		$pdo = new \PDO($dblib, $db_conf['user'], $db_conf['password']);
+		return $pdo;
 	}
 
 	// $where = [ [], 'AND', [], 'OR', [] ]
 	public function select(String $tablename, $fields = [], $where = [], $order_fields = [], String $order_sort = 'DESC', $limit = []){
-		// SELECT `field_1`, `field_2` FROM `tablename` WHERE `field_1` = 'value' AND `field_2` LIKE 'value2' ORDER BY `field_1` DESC LIMIT 0, 100
-		// SELECT `field_1`, `field_2` FROM `tablename` WHERE `field_1` IN ('val1', 'val2', 'val3')
-		
 		list($fields, $where, $order_fields, $limit) = $this -> select_data_preprocessing($fields, $where, $order_fields, $limit);
 
 		if($order_fields != ''){
@@ -31,12 +28,25 @@ class ThinBuilder{
 		$sql = "SELECT {$fields} FROM `{$tablename}` {$where} {$order_fields} {$limit}";
 		echo $sql;
 
-		return $this -> connect -> query($sql) -> fetchAll(\PDO::FETCH_ASSOC);
+		return $this -> pdo -> query($sql) -> fetchAll(\PDO::FETCH_ASSOC);
+	}
+
+	private function escape_string_in_arr($arr){
+		$result = [];
+		foreach ($arr as $key => $value) {
+			if(!is_array($value)){
+				$result[addslashes($key)] = addslashes($value);
+			}else{
+				$result[addslashes($key)] = $this -> escape_string_in_arr($value);
+			}
+		}
+		return $result;
 	}
 
 	private function select_data_preprocessing($fields, $where, $order_fields, $limit){
 		// FIELDS PREPROCESSING
 		if(count($fields)){
+			$fields = $this -> escape_string_in_arr($fields);
 			$fields = '`' . implode('`,`', $fields) . '`';
 		}else{
 			$fields = '*';
@@ -44,12 +54,14 @@ class ThinBuilder{
 
 		// ORDER PREPROCESSING
 		if(count($order_fields)){
+			$order_fields = $this -> escape_string_in_arr($order_fields);
 			$order_fields = 'ORDER BY `' . implode('`,`', $order_fields) . '`';
 		}else{
 			$order_fields = '';
 		}
 
 		// WHERE PREPROCESSING
+		$where = $this -> escape_string_in_arr($where);
 		foreach ($where as $i => $w_item) {
 			if(is_array($w_item)){
 				if(count($w_item) === 2){
@@ -71,6 +83,7 @@ class ThinBuilder{
 
 		// LIMIT PREPROCESSING
 		if(count($limit)){
+			$limit = $this -> escape_string_in_arr($limit);
 			$limit = 'LIMIT ' . implode(',', $limit);
 		}else{
 			$limit = '';
@@ -80,12 +93,24 @@ class ThinBuilder{
 	}
 
 
-	public function insert(){
-		
+	public function insert(String $tablename, Array $data){
+		$tablename = addslashes($tablename);
+		$data = $this -> escape_string_in_arr($data);
+
+		$fields = '`' . implode('`,`', array_keys($data)) . '`';
+		$values = "'" . implode("','", array_values($data)) . "'";
+		$sql = "INSERT INTO `{$tablename}` ({$fields}) VALUES ($values)";
+
+		echo $sql;
+		if($this -> pdo -> query($sql)){
+			return $this -> pdo -> lastInsertId();
+		}
+
+		return false;
 	}
 
 	public function update(){
-		
+		// 
 	}
 
 	public function delete(){
