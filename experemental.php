@@ -24,3 +24,6 @@ $tb = new ThinBuilder([
 
 // UPDATE
 // dd($tb -> update('users', ['name' => 'Jan'], [['name', '=', 'Jack'], 'OR', ['id', 1]]));
+
+// DELETE
+// dd($tb -> delete('users', [['email', 'victor@gmail.com']]));

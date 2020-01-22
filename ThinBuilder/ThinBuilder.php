@@ -91,7 +91,6 @@ class ThinBuilder{
 	}
 
 	public function update(String $tablename, Array $data, $where = []){
-		// UPDATE `table` SET `field1`='bla', `field2`='bla2' WHERE ...
 		$where = $this -> where_processing($where);
 		$data = $this -> escape_string_in_arr($data);
 		$tablename = addslashes($tablename);
@@ -106,8 +105,12 @@ class ThinBuilder{
 		return $this -> pdo -> query($sql);
 	}
 
-	public function delete(){
-		
+	public function delete(String $tablename, $where = []){
+		$tablename = addslashes($tablename);
+		$where = $this -> where_processing($where);
+
+		$sql = "DELETE FROM `{$tablename}` {$where}";
+		return $this -> pdo -> query($sql);
 	}
 
 	private function where_processing($where){
