@@ -11,10 +11,16 @@ $tb = new ThinBuilder([
 		"password" => ""
 	]);
 
+// INSERT
 // dd($tb -> insert('users', ['name' => 'Victor', 'email' => 'victor@gmail.com', 'timestamp' => 'NOW()']));
 
-$res = $tb -> select('users', [], [
-	['name', 'IN', ['John', "Eugene"]]
-], ['id'], 'ASC', [0, 10]);
+// SELECT
+// $res = $tb -> select('users', [], [
+// 	['name', 'IN', ['John', "Eugene"]]
+// ], ['id'], 'ASC', [0, 10]);
 
-dd($res);
+// dd($res);
+
+
+// UPDATE
+// dd($tb -> update('users', ['name' => 'Jan'], [['name', '=', 'Jack'], 'OR', ['id', 1]]));

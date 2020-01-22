@@ -61,6 +61,56 @@ class ThinBuilder{
 		}
 
 		// WHERE PREPROCESSING
+		$where = $this -> where_processing($where);
+
+		// LIMIT PREPROCESSING
+		if(count($limit)){
+			$limit = $this -> escape_string_in_arr($limit);
+			$limit = 'LIMIT ' . implode(',', $limit);
+		}else{
+			$limit = '';
+		}
+
+		return [$fields, $where, $order_fields, $limit];
+	}
+
+	public function insert(String $tablename, Array $data){
+		$tablename = addslashes($tablename);
+		$data = $this -> escape_string_in_arr($data);
+
+		$fields = '`' . implode('`,`', array_keys($data)) . '`';
+		$values = "'" . implode("','", array_values($data)) . "'";
+		$sql = "INSERT INTO `{$tablename}` ({$fields}) VALUES ($values)";
+
+		echo $sql;
+		if($this -> pdo -> query($sql)){
+			return $this -> pdo -> lastInsertId();
+		}
+
+		return false;
+	}
+
+	public function update(String $tablename, Array $data, $where = []){
+		// UPDATE `table` SET `field1`='bla', `field2`='bla2' WHERE ...
+		$where = $this -> where_processing($where);
+		$data = $this -> escape_string_in_arr($data);
+		$tablename = addslashes($tablename);
+
+		$pdata = [];
+		foreach ($data as $field => $value) {
+			$pdata[] = "`{$field}`='{$value}'";
+		}
+
+		$sql = "UPDATE `{$tablename}` SET " . implode(',', $pdata) . " {$where}";
+		echo $sql;
+		return $this -> pdo -> query($sql);
+	}
+
+	public function delete(){
+		
+	}
+
+	private function where_processing($where){
 		$where = $this -> escape_string_in_arr($where);
 		foreach ($where as $i => $w_item) {
 			if(is_array($w_item)){
@@ -81,39 +131,6 @@ class ThinBuilder{
 
 		$where = 'WHERE ' . implode(' ', $where);
 
-		// LIMIT PREPROCESSING
-		if(count($limit)){
-			$limit = $this -> escape_string_in_arr($limit);
-			$limit = 'LIMIT ' . implode(',', $limit);
-		}else{
-			$limit = '';
-		}
-
-		return [$fields, $where, $order_fields, $limit];
-	}
-
-
-	public function insert(String $tablename, Array $data){
-		$tablename = addslashes($tablename);
-		$data = $this -> escape_string_in_arr($data);
-
-		$fields = '`' . implode('`,`', array_keys($data)) . '`';
-		$values = "'" . implode("','", array_values($data)) . "'";
-		$sql = "INSERT INTO `{$tablename}` ({$fields}) VALUES ($values)";
-
-		echo $sql;
-		if($this -> pdo -> query($sql)){
-			return $this -> pdo -> lastInsertId();
-		}
-
-		return false;
-	}
-
-	public function update(){
-		// 
-	}
-
-	public function delete(){
-		
+		return $where;
 	}
 }
