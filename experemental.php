@@ -27,3 +27,5 @@ $tb = new ThinBuilder([
 
 // DELETE
 // dd($tb -> delete('users', [['email', 'victor@gmail.com']]));
+// 
+dd($tb -> tables());

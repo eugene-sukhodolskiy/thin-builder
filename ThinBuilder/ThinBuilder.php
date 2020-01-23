@@ -136,4 +136,44 @@ class ThinBuilder{
 
 		return $where;
 	}
+
+	public function drop_table(String $tablename){
+
+	}
+
+	public function truncate(String $tablename){
+		//TRUNCATE TABLE  tablename
+	}
+
+	public function create_table(String $tablename, Array $fields, String $primary_key, $engine = 'InnoDB'){
+		/* $fields = [
+			'id' => [
+				'type' => 'INT',
+				'length' => 11,
+				'default' => 'NOT NULL',
+				'auto_increment' => true
+			],
+			'option_key' => [
+				'type' => 'VARCHAR',
+				'length' => 255,
+				'default' => 'NOT NULL'
+				'auto_increment' => false
+			],
+		] */
+		 
+		// CREATE TABLE IF NOT EXISTS `tablename` ( `id` INT NOT NULL AUTO_INCREMENT , `option_key` VARCHAR(255) NOT NULL , `val` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+	}
+
+	public function table_fields(String $tablename){
+
+	}
+
+	public function tables(){
+		$sql = 'SHOW TABLES';
+		$result = $this -> pdo -> query($sql) -> fetchAll(\PDO::FETCH_ASSOC);
+		return array_map(function($val){
+			$k = array_keys($val);
+			return $val[$k[0]];
+		}, $result);
+	}
 }
