@@ -137,12 +137,16 @@ class ThinBuilder{
 		return $where;
 	}
 
-	public function drop_table(String $tablename){
-
+	public function drop(String $tablename){
+		$tablename = addslashes($tablename);
+		$sql = "DROP TABLE `{$tablename}`";
+		return $this -> pdo -> query($sql);
 	}
 
 	public function truncate(String $tablename){
-		//TRUNCATE TABLE  tablename
+		$tablename = addslashes($tablename);
+		$sql = "TRUNCATE TABLE `{$tablename}`";
+		return $this -> pdo -> query($sql);
 	}
 
 	public function create_table(String $tablename, Array $fields, String $primary_key, $engine = 'InnoDB'){

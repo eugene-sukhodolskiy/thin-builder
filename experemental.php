@@ -13,6 +13,7 @@ $tb = new ThinBuilder([
 
 // INSERT
 // dd($tb -> insert('users', ['name' => 'Victor', 'email' => 'victor@gmail.com', 'timestamp' => 'NOW()']));
+ // dd($tb -> insert('test', ['description' => 'desc']));
 
 // SELECT
 // $res = $tb -> select('users', [], [
@@ -27,5 +28,12 @@ $tb = new ThinBuilder([
 
 // DELETE
 // dd($tb -> delete('users', [['email', 'victor@gmail.com']]));
-// 
-dd($tb -> tables());
+
+// TABLES LIST 
+// dd($tb -> tables());
+
+// TRUNCATE TABLE
+// dd($tb -> truncate('test'));
+
+// DROP TABLE
+dd($tb -> drop('test'));
