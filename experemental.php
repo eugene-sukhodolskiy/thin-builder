@@ -36,4 +36,19 @@ $tb = new ThinBuilder([
 // dd($tb -> truncate('test'));
 
 // DROP TABLE
-dd($tb -> drop('test'));
+//dd($tb -> drop('test'));
+
+$tb -> create_table('new_table', [
+			'id' => [
+				'type' => 'INT',
+				'length' => 11,
+				'auto_increment' => true
+			],
+			'option_key' => [
+				'type' => 'VARCHAR',
+				'length' => 255,
+				'default' => 'hello',
+				'can_be_null' => true,
+				'auto_increment' => false
+			],
+		], 'id');

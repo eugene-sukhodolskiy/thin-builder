@@ -82,7 +82,6 @@ class ThinBuilder{
 		$values = "'" . implode("','", array_values($data)) . "'";
 		$sql = "INSERT INTO `{$tablename}` ({$fields}) VALUES ($values)";
 
-		echo $sql;
 		if($this -> pdo -> query($sql)){
 			return $this -> pdo -> lastInsertId();
 		}
@@ -101,7 +100,6 @@ class ThinBuilder{
 		}
 
 		$sql = "UPDATE `{$tablename}` SET " . implode(',', $pdata) . " {$where}";
-		echo $sql;
 		return $this -> pdo -> query($sql);
 	}
 
@@ -133,7 +131,6 @@ class ThinBuilder{
 		}
 
 		$where = 'WHERE ' . implode(' ', $where);
-
 		return $where;
 	}
 
@@ -155,17 +152,43 @@ class ThinBuilder{
 				'type' => 'INT',
 				'length' => 11,
 				'default' => 'NOT NULL',
-				'auto_increment' => true
+				'auto_increment' => true,
+				'can_be_null' => true
 			],
 			'option_key' => [
 				'type' => 'VARCHAR',
 				'length' => 255,
 				'default' => 'NOT NULL'
-				'auto_increment' => false
+				'auto_increment' => false,
+				'can_be_null' => false
 			],
 		] */
 		 
-		// CREATE TABLE IF NOT EXISTS `tablename` ( `id` INT NOT NULL AUTO_INCREMENT , `option_key` VARCHAR(255) NOT NULL , `val` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+		$tablename = addslashes($tablename);
+		$fields = $this -> escape_string_in_arr($fields);
+		$primary_key = addslashes($primary_key);
+		$engine = addslashes($engine);
+
+		$fields_str_arr = [];
+		foreach ($fields as $name => $options) {
+			$length = (isset($options['length']) and !is_null($options['length'])) ? "({$options['length']})" : '';
+
+			if(isset($options['default'])){
+				$default = ($options['default'] == 'NULL' or $options['default'] == 'CURRENT_TIMESTAMP') ? "DEFAULT {$options['default']}" : "DEFAULT '{$options['default']}'";
+			}else{
+				$default = '';
+			}
+
+			$auto_increment = (isset($options['auto_increment']) and $options['auto_increment']) ? 'AUTO_INCREMENT' : '';
+			$can_be_null = (isset($options['can_be_null']) and $options['can_be_null']) ? 'NULL' : 'NOT NULL';
+			
+			$fields_str_arr[] = "`{$name}` {$options['type']}{$length} {$can_be_null} {$default} {$auto_increment}";
+		}
+
+		$fields_string = implode(', ', $fields_str_arr);
+		$sql = "CREATE TABLE IF NOT EXISTS `{$tablename}` ({$fields_string}, PRIMARY KEY (`{$primary_key}`)) ENGINE = {$engine}";
+
+		return $this -> pdo -> query($sql);
 	}
 
 	public function table_fields(String $tablename){
