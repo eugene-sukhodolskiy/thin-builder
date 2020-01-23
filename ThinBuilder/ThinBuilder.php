@@ -192,7 +192,21 @@ class ThinBuilder{
 	}
 
 	public function table_fields(String $tablename){
+		$tablename = addslashes($tablename);
 
+		$sql = "SHOW COLUMNS FROM `{$tablename}`";
+		$result = $this -> pdo -> query($sql) -> fetchAll(\PDO::FETCH_NUM);
+		$fields = [];
+		foreach ($result as $raw_field) {
+			list($type, $length) = explode('(', $raw_field[1]);
+			$fields[$raw_field[0]] = ['type' => $type];
+			$length = intval($length);
+			if($length){
+				$fields[$raw_field[0]]['length'] = $length;
+			}
+		}
+
+		return $fields;
 	}
 
 	public function tables(){

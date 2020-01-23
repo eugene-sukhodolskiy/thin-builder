@@ -38,17 +38,21 @@ $tb = new ThinBuilder([
 // DROP TABLE
 //dd($tb -> drop('test'));
 
-$tb -> create_table('new_table', [
-			'id' => [
-				'type' => 'INT',
-				'length' => 11,
-				'auto_increment' => true
-			],
-			'option_key' => [
-				'type' => 'VARCHAR',
-				'length' => 255,
-				'default' => 'hello',
-				'can_be_null' => true,
-				'auto_increment' => false
-			],
-		], 'id');
+// CREATE TABLE
+// $tb -> create_table('new_table', [
+// 			'id' => [
+// 				'type' => 'INT',
+// 				'length' => 11,
+// 				'auto_increment' => true
+// 			],
+// 			'option_key' => [
+// 				'type' => 'VARCHAR',
+// 				'length' => 255,
+// 				'default' => 'hello',
+// 				'can_be_null' => true,
+// 				'auto_increment' => false
+// 			],
+// 		], 'id');
+
+// TABLE FIELDS
+$tb -> table_fields('users');
