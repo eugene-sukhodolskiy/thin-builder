@@ -112,6 +112,10 @@ class ThinBuilder{
 	}
 
 	private function where_processing($where){
+		if(!count($where)){
+			return '';
+		}
+
 		$where = $this -> escape_string_in_arr($where);
 		foreach ($where as $i => $w_item) {
 			if(is_array($w_item)){
@@ -216,5 +220,13 @@ class ThinBuilder{
 			$k = array_keys($val);
 			return $val[$k[0]];
 		}, $result);
+	}
+
+	public function count(String $tablename, $where = []){
+		$tablename = addslashes($tablename);
+		$where = $this -> where_processing($where);
+		$sql = "SELECT COUNT(*) FROM `{$tablename}` {$where}";
+		$result = $this -> pdo -> query($sql) -> fetch(\PDO::FETCH_ASSOC);
+		return intval($result['COUNT(*)']);
 	}
 }
