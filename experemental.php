@@ -58,4 +58,4 @@ $tb = new ThinBuilder([
 // $tb -> table_fields('users');
 
 // COUNT ROWS
-// $tb -> count('users');
+echo $tb -> count('users');
