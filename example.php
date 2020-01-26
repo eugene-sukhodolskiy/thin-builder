@@ -23,7 +23,13 @@ function insert($tb){
 		['name' => 'Eugene', 'email' => 'e.sukhodolskiy@outlook.com', 'timestamp' => 'NOW()'],
 	];
 
-	return $tb -> insert('users', $rows);
+	$result = [];
+
+	foreach ($rows as $row) {
+		$result[] = $tb -> insert('users', $row);
+	}
+
+	return $result;
 }
 
 function select($tb){
@@ -108,18 +114,19 @@ function count_rows($tb){
 }
 
 function example($tb){
-	// return create_table($tb);
-	// return insert($tb);
-	return select($tb);
-	// return count_rows($tb);
-	// return update($tb);
-	// return delete($tb);
-	// return tables($tb);
-	// return truncate($tb);
-	// return drop($tb);
-	// return create_table($tb);
-	// return table_fields($tb);
+	// create_table($tb);
+	// insert($tb);
+	select($tb);
+	count_rows($tb);
+	// update($tb);
+	// delete($tb);
+	// tables($tb);
+	// truncate($tb);
+	// drop($tb);
+	// create_table($tb);
+	// table_fields($tb);
 }
 
+example($tb);
 
-dd(example($tb));
+dd( $tb -> history() -> get_all_history() );

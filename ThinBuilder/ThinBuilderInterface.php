@@ -5,6 +5,19 @@ namespace ThinBuilder;
 interface ThinBuilderInterface{
 
 	/**
+	 * Send raw sql query and get result. Logging sql queries to history
+	 *
+	 * @method query
+	 *
+	 * @param  String $sql Raw sql string
+	 * @param  String|string $fetch_func String name of handler function (fetch, fetchAll ...)
+	 * @param  Int $fetch_func_param an example "PDO::FETCH_ASSOC"
+	 *
+	 * @return Result of query
+	 */
+	public function query(String $sql, String $fetch_func = '', Int $fetch_func_param = NULL);
+
+	/**
 	 * Select rows from db table
 	 *
 	 * @method select
@@ -124,4 +137,13 @@ interface ThinBuilderInterface{
 	 * @return Int Count rows in table
 	 */
 	public function count(String $tablename, $where = []);
+
+	/**
+	 * Get history object
+	 *
+	 * @method history
+	 *
+	 * @return History object
+	 */
+	public function history();
 }

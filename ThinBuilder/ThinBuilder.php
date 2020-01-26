@@ -3,8 +3,9 @@
 /**
  * Class: ThinBuilder
  * @author Eugene Sukhodolskiy <e.sukhodolskiy@outlook.com>
+ * @version 0.1
  * Date: 22.01.2020
- * Update At: 21.01.2020
+ * Update At: 26.01.2020
  */
 
 namespace ThinBuilder;
@@ -12,6 +13,14 @@ namespace ThinBuilder;
 class ThinBuilder implements ThinBuilderInterface{
 
 	use ThinBuilderProcessing;
+
+	public function query(String $sql, String $fetch_func = '', Int $fetch_func_param = NULL){
+		$result = $fetch_func ? $this -> pdo -> query($sql) -> $fetch_func($fetch_func_param) : $this -> pdo -> query($sql);
+		if($this -> history_enabled){
+			$this -> history -> add($sql, $result);
+		}
+		return $result;
+	}
 
 	// $where = [ [], 'AND', [], 'OR', [] ]
 	public function select(String $tablename, $fields = [], $where = [], $order_fields = [], String $order_sort = 'DESC', $limit = []){
@@ -22,9 +31,8 @@ class ThinBuilder implements ThinBuilderInterface{
 		}
 
 		$sql = "SELECT {$fields} FROM `{$tablename}` {$where} {$order_fields} {$limit}";
-		echo $sql;
 
-		return $this -> pdo -> query($sql) -> fetchAll(\PDO::FETCH_ASSOC);
+		return $this -> query($sql, 'fetchAll', \PDO::FETCH_ASSOC);
 	}
 
 	public function insert(String $tablename, Array $data){
@@ -35,8 +43,10 @@ class ThinBuilder implements ThinBuilderInterface{
 		$values = "'" . implode("','", array_values($data)) . "'";
 		$sql = "INSERT INTO `{$tablename}` ({$fields}) VALUES ($values)";
 
-		if($this -> pdo -> query($sql)){
-			return $this -> pdo -> lastInsertId();
+		if($this -> query($sql)){
+			$id = $this -> pdo -> lastInsertId();
+			$this -> history -> add($sql, $id);
+			return $id;
 		}
 
 		return false;
@@ -53,7 +63,7 @@ class ThinBuilder implements ThinBuilderInterface{
 		}
 
 		$sql = "UPDATE `{$tablename}` SET " . implode(',', $pdata) . " {$where}";
-		return $this -> pdo -> query($sql);
+		return $this -> query($sql);
 	}
 
 	public function delete(String $tablename, $where = []){
@@ -61,19 +71,19 @@ class ThinBuilder implements ThinBuilderInterface{
 		$where = $this -> where_processing($where);
 
 		$sql = "DELETE FROM `{$tablename}` {$where}";
-		return $this -> pdo -> query($sql);
+		return $this -> query($sql);
 	}
 
 	public function drop(String $tablename){
 		$tablename = addslashes($tablename);
 		$sql = "DROP TABLE `{$tablename}`";
-		return $this -> pdo -> query($sql);
+		return $this -> query($sql);
 	}
 
 	public function truncate(String $tablename){
 		$tablename = addslashes($tablename);
 		$sql = "TRUNCATE TABLE `{$tablename}`";
-		return $this -> pdo -> query($sql);
+		return $this -> query($sql);
 	}
 
 	public function create_table(String $tablename, Array $fields, String $primary_key, $engine = 'InnoDB'){
@@ -118,14 +128,14 @@ class ThinBuilder implements ThinBuilderInterface{
 		$fields_string = implode(', ', $fields_str_arr);
 		$sql = "CREATE TABLE IF NOT EXISTS `{$tablename}` ({$fields_string}, PRIMARY KEY (`{$primary_key}`)) ENGINE = {$engine}";
 
-		return $this -> pdo -> query($sql);
+		return $this -> query($sql);
 	}
 
 	public function table_fields(String $tablename){
 		$tablename = addslashes($tablename);
 
 		$sql = "SHOW COLUMNS FROM `{$tablename}`";
-		$result = $this -> pdo -> query($sql) -> fetchAll(\PDO::FETCH_NUM);
+		$result = $this -> query($sql, 'fetchAll', \PDO::FETCH_NUM);
 		$fields = [];
 		foreach ($result as $raw_field) {
 			list($type, $length) = explode('(', $raw_field[1]);
@@ -141,7 +151,7 @@ class ThinBuilder implements ThinBuilderInterface{
 
 	public function tables(){
 		$sql = 'SHOW TABLES';
-		$result = $this -> pdo -> query($sql) -> fetchAll(\PDO::FETCH_ASSOC);
+		$result = $this -> query($sql, 'fetchAll', \PDO::FETCH_ASSOC);
 		return array_map(function($val){
 			$k = array_keys($val);
 			return $val[$k[0]];
@@ -152,7 +162,11 @@ class ThinBuilder implements ThinBuilderInterface{
 		$tablename = addslashes($tablename);
 		$where = $this -> where_processing($where);
 		$sql = "SELECT COUNT(*) FROM `{$tablename}` {$where}";
-		$result = $this -> pdo -> query($sql) -> fetch(\PDO::FETCH_ASSOC);
+		$result = $this -> query($sql, 'fetch', \PDO::FETCH_ASSOC);
 		return intval($result['COUNT(*)']);
+	}
+
+	public function history(){
+		return $this -> history;
 	}
 }

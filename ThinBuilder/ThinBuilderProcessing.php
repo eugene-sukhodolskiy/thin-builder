@@ -2,13 +2,30 @@
 
 namespace ThinBuilder;
 
+/**
+ * trait ThinBuilderProcessing
+ * @author  Eugene Sukhodolskiy <e.sukhodolskiy@outlook.com>
+ * @version 0.1
+ * Update at 26.01.2020
+ */
+
 trait ThinBuilderProcessing{
 	protected $pdo;
 	protected $db_config;
+	protected $history;
+	protected $history_enabled;
 
-	public function __construct($db_config){
+	public function __construct($db_config, $history_enabled = true){
 		$this -> db_config = $db_config;
 		$this -> pdo = $this -> create_connect($this -> db_config);
+		$this -> history_enabled = $history_enabled;
+		if($this -> history_enabled){
+			$this -> create_history_instance();
+		}
+	}
+
+	protected function create_history_instance(){
+		$this -> history = new History();
 	}
 
 	protected function create_connect($db_conf){
