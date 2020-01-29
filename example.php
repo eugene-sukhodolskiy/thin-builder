@@ -13,7 +13,7 @@ $tb = new ThinBuilder([
 		"charset" => "utf8",
 		"user" => "root",
 		"password" => ""
-	]);
+	], new FuryDriver());
 
 
 function insert($tb){

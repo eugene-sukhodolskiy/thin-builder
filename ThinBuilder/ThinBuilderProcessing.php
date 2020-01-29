@@ -14,10 +14,12 @@ trait ThinBuilderProcessing{
 	protected $db_config;
 	protected $history;
 	protected $history_enabled;
+	protected $driver;
 
-	public function __construct($db_config, $history_enabled = true){
+	public function __construct($db_config, $driver = null, $history_enabled = true){
 		$this -> db_config = $db_config;
 		$this -> pdo = $this -> create_connect($this -> db_config);
+		$this -> driver = $driver;
 		$this -> history_enabled = $history_enabled;
 		if($this -> history_enabled){
 			$this -> create_history_instance();

@@ -15,10 +15,20 @@ class ThinBuilder implements ThinBuilderInterface{
 	use ThinBuilderProcessing;
 
 	public function query(String $sql, String $fetch_func = '', Int $fetch_func_param = NULL){
+		if($this -> driver){
+			$this -> driver -> event_ready_sql($sql);
+		}
+
 		$result = $fetch_func ? $this -> pdo -> query($sql) -> $fetch_func($fetch_func_param) : $this -> pdo -> query($sql);
+
 		if($this -> history_enabled){
 			$this -> history -> add($sql, $result);
 		}
+
+		if($this -> driver){
+			$this -> driver -> event_query($sql, $result);
+		}
+
 		return $result;
 	}
 
