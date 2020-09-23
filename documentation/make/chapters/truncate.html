@@ -1,0 +1,25 @@
+<section id="truncate" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Truncate Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Truncate selected db table</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function truncate(String $tablename);</pre>
+	<code class="code">String $tablename</code> - Name of the table what we want to truncate<br>
+	<code class="code">@return Boolean</code> - Result of truncating
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$tablename = 'users';
+		$result = $tb -> truncate($tablename);</pre>
+
+</section>

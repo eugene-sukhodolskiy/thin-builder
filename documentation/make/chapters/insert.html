@@ -1,0 +1,32 @@
+<section id="insert" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Insert Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Insert row to db table</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function insert(String $tablename, Array $data);</pre>
+	<code class="code">String $tablename</code> - Name of the table we are working with <br>
+	<code class="code">Array $data</code> - Data for inserting <br>
+	<code class="code">@return Boolean</code> - Result of working
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$tablename = 'users';
+		$user = [
+			'name' => 'Victor', 
+			'email' => 'victor@gmail.com', 
+			'timestamp' => 'NOW()'
+		];
+
+		$result = $tb -> insert($tablename, $user);</pre>
+
+</section>

@@ -1,0 +1,34 @@
+<section id="update" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Update Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Update data in table rows</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function update(String $tablename, Array $data, $where = []);</pre>
+	<code class="code">String $tablename</code> - Name of the table we are working with <br>
+	<code class="code">Array $data</code> - New data for row <br>
+	<code class="code">Array $where</code> - Array with conditions. What rows we want to change <br>
+	<code class="code">@return Boolean</code> - Result of updating
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$tablename = 'users';
+		$data = ['name' => 'Jan'];
+		$where = [
+			['name', '=', 'John'], 
+			'OR', 
+			['id', 2]
+		];
+
+		$result = $tb -> update($tablename, $data, $where);</pre>
+
+</section>

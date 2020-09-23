@@ -1,0 +1,25 @@
+<section id="drop" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Drop Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Drop selected table from db</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function drop(String $tablename);</pre>
+	<code class="code">String $tablename</code> - Name of the table what we want to drop <br>
+	<code class="code">@return Boolean</code> - Result of dropping
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$tablename = 'users';
+		$result = $tb -> drop($tablename);</pre>
+
+</section>

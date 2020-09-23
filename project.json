@@ -1,0 +1,19 @@
+{
+    "name": "Thin Builder",
+    "ver": "1.0",
+    "author": "E. Sukhodolskiy",
+    "tags": [
+        "fury module",
+        "php",
+        "sql",
+	"fury"
+    ],
+    "type": "web",
+    "main_lang": "php",
+    "status": "open",
+    "project_color": "#09299E",
+    "git_url": "https://github.com/eugene-sukhodolskiy/thin-builder",
+    "release_url": null,
+    "favicon": null,
+    "description": "This is php module for fury framework. For easy working with database"
+}

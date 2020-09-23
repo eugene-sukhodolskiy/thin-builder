@@ -1,0 +1,53 @@
+<section id="create_table" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Create Table Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Create new table in to db</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function create_table(String $tablename, Array $fields, String $primary_key, String $engine = 'InnoDB');</pre>
+	<code class="code">String $tablename</code> - Name of new table<br>
+	<code class="code">Array $fields</code> - Array with fields and fields<br>
+	<code class="code">String $primary_key</code> - Name of field what we want selecting like primary key<br>
+	<code class="code">String $engine</code> - Name of db engine<br>
+	<code class="code">@return Boolean</code> - Result of creating
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$tablename = 'users';
+		$fields = [
+		'id' => [
+			'type' => 'INT',
+			'length' => 11,
+			'auto_increment' => true
+		],
+		'name' => [
+			'type' => 'VARCHAR',
+			'length' => 100,
+			'default' => 'Unknown',
+			'can_be_null' => false
+		],
+		'email' => [
+			'type' => 'VARCHAR',
+			'length' => 255,
+			'can_be_null' => false,
+		],
+		'timestamp' => [
+			'type' => 'TIMESTAMP',
+			'default' => 'NOW()'
+		]
+	];
+
+	$primary_key = 'id';
+
+	$result = $tb -> create_table($tablename, $fields, $primary_key);</pre>
+
+</section>

@@ -1,0 +1,33 @@
+<section id="query" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Query Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+	<p>Send raw sql query and get result. Logging sql queries to history. Return result of query</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function query(String $sql, [String $fetch_func = '', Int $fetch_func_param = NULL]);</pre>
+	<code class="code">String $sql</code> - Raw sql string. <br>
+	<code class="code">String $fetch_func</code> - String name of handler function. Example <code class="code">"fetch", "fetchAll", ...</code> <br>
+	<code class="code">Int $fetch_func_param</code> - an example <code class="code">"PDO::FETCH_ASSOC"</code>
+
+	<h4>Example:</h4>
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$sql = "SELECT * FROM `table_name`";
+		$result = $tb -> query($sql, 'fetchAll', \PDO::FETCH_ASSOC);
+		var_dump($result);
+
+		/* Result
+		[
+			["col_name1" => "column value", "col_name2" => "some column value"],
+			["col_name1" => "column value", "col_name2" => "some column value"],
+			...
+		]
+		*/</pre>
+
+</section>

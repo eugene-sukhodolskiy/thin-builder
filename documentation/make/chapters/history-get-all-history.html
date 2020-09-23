@@ -1,0 +1,24 @@
+<section id="history_get_all_history" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">History::get_all_history Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Get All History about sql requests with results</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function get_all_history()</pre>
+	<code class="code">@return Void</code>
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$history_log = $tb -> history() -> get_all_history();
+		var_dump($history_log);</pre>
+
+</section>

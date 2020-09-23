@@ -7,7 +7,7 @@ namespace ThinBuilder;
  * @author Eugene Sukhodolskiy
  * Date: 26.01.2020
  * Time: 1:39 AM
- * @version  0.1
+ * @version  1.0
  */
 
 class History{

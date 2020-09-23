@@ -1,0 +1,27 @@
+<section id="history_add" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">History::add Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Log result of sql request to history list</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function add(String $sql, Mixed $result)</pre>
+	<code class="code">String $sql</code> - SQL string of request <br>
+	<code class="code">Mixed $result</code> - Result of request <br>
+	<code class="code">@return Void</code>
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$sql = "SELECT * FROM `some_table`";
+		$result = $tb -> query($sql);
+		$tb -> history() -> add($sql, $result);</pre>
+
+</section>

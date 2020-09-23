@@ -1,0 +1,38 @@
+<section id="select" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Select Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+	<p>Select rows from db table</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function select(String $tablename, [ $fields = [], $where = [], $order_fields = [], String $order_sort = 'DESC', $limit = [] ]);</pre>
+	<code class="code">String $tablename</code> - Name of the table we are working with <br>
+	<code class="code">Array $fields</code> - Needed fields <br>
+	<code class="code">Array $where</code> - Array with conditions <br>
+	<code class="code">Array $order_fields</code> - Fields of sort <br>
+	<code class="code">String $order_sort</code> - Type of sort <code class="code">"ASC"</code> OR <code class="code">"DESC"</code> <br>
+	<code class="code">Array $limit</code> - Limits for selecting <br>
+	<code class="code">@return Array</code> - Result of selecting
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$table_name = 'users';
+		$fields = ['id', 'email', 'timestamp'];
+		$where = [
+			['name', 'IN', ['John', 'Eugene']]
+		];
+		$orderby = ['name'];
+		$sort = 'ASC';
+		$limit = [0, 10];
+
+		$result = $tb -> select($table_name, $fields, $where, $orderby, $sort, $limit);
+	</pre>
+
+</section>

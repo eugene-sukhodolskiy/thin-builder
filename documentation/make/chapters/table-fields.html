@@ -1,0 +1,25 @@
+<section id="table_fields" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Table Fields Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Get table fields</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function table_fields(String $tablename);</pre>
+	<code class="code">String $tablename</code> - Name of the table we are working with<br>
+	<code class="code">@return Boolean</code> - Result of creating
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$tablename = 'users';
+		$result = $tb -> table_fields($tablename);</pre>
+
+</section>

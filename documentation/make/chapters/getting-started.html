@@ -1,0 +1,46 @@
+<section id="getting_started" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Getting Started <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<p>This is module for fury framework, but you can use this like single tool</p>
+
+			<h4>For use like single tool</h4>
+			<p>Include a __autoload.php file and initialization of connect with database. You don't need files: <code class="code">FuryDriver.php</code> and <code class="code">DriverInterface.php</code></p>
+			<pre class="brush: php">
+				use \ThinBuilder\ThinBuilder;
+
+				$tb = new ThinBuilder([
+					"dblib" => "mysql", // Library for working with DB
+					"host" => "127.0.0.1", // host of DB
+					"dbname" => "thin-builder", // Name of DB
+					"charset" => "utf8", // Charset of DB
+					"user" => "root", // Input username of DB
+					"password" => "" // Enter the password
+				]);
+
+				// and you can use Thin Builder
+			</pre>
+
+			<h4>For use with fury framework</h4>
+			<p>Place the <code class="code">ThinBuilder</code> folder to <code class="code">/Fury/Modules/</code> and place the <code class="code">FuryDriver.php</code> file to <code class="code">/Fury/Drivers/</code>. That all, you can use this</p>
+
+			<pre class="brush: php">
+				use \Fury\Modules\ThinBuilder\ThinBuilder;
+
+				$tb = new ThinBuilder(FCONF['db'], new FuryDriver());
+
+				// and you can use Thin Builder
+			</pre>
+
+			<div class="intro2 clearfix">
+				<p><i class="fa fa-exclamation-triangle"></i> You need change namespace from <code class="code">namespace ThinBuilder</code> to <code class="code">namepace Fury\Modules\ThinBuilder</code></p>
+			</div>
+
+		</div>
+	</div>
+</section>

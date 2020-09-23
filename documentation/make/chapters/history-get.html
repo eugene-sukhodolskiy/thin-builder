@@ -1,0 +1,25 @@
+<section id="history_get" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">History::get Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Get result of sql request by sql string</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function get(String $sql)</pre>
+	<code class="code">String $sql</code> - SQL string of request <br>
+	<code class="code">@return Mixed</code> - Result of sql request
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$result_of_request = $tb -> history() -> get("SELECT * FROM `some_table`");
+		var_dump($result_of_request)</pre>
+
+</section>

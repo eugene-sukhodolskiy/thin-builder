@@ -1,0 +1,31 @@
+<section id="history" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">History Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Get history object</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function history();</pre>
+	<code class="code">@return History</code> - Object of history
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$tablename = 'users';
+
+		$tb -> select($tablename);
+		$tb -> delete($tablename, [
+			['id', 2], 'AND', ['id', 4]
+		]);
+
+		$result = $tb -> history() -> get_all_history();
+		var_dump($result);</pre>
+
+</section>

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta name="keywords" content="">
+
+	<title>Thin Builder | Documentation by Eugene Sukhodolskiy</title>
+
+	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/stroke.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/animate.css">
+	<link rel="stylesheet" type="text/css" href="css/prettyPhoto.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<link rel="stylesheet" type="text/css" href="js/syntax-highlighter/styles/shCore.css" media="all">
+	<link rel="stylesheet" type="text/css" href="js/syntax-highlighter/styles/shThemeRDark.css" media="all">
+
+	<!-- CUSTOM -->
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+
+<body>
+
+	<div id="wrapper">
+		<div class="container">
+			<section id="top" class="section docs-heading">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="big-title text-center">
+				<h1>Thin Builder Documentation</h1>
+				<p class="lead">Thin Builder v1.0</p>
+			</div>
+			<!-- end title -->
+		</div>
+		<!-- end 12 -->
+	</div>
+	<!-- end row -->
+
+	<hr>
+
+</section>
+<!-- end section -->
+
+			<div class="row">
+				<div class="col-md-3">
+					<nav class="docs-sidebar" data-spy="affix" data-offset-top="300" data-offset-bottom="200" role="navigation">
+	<ul class="nav">
+		<li><a href="#getting_started">Getting Started</a></li>
+		<li><a href="#query">ThinBuilder Methods</a>
+			<ul class="nav">
+				<li><a href="#query">Query</a></li>
+				<li><a href="#select">Select</a></li>
+				<li><a href="#insert">Insert</a></li>
+				<li><a href="#update">Update</a></li>
+				<li><a href="#delete">Delete</a></li>
+				<li><a href="#drop">Drop</a></li>
+				<li><a href="#truncate">Truncate</a></li>
+				<li><a href="#create_table">Create Table</a></li>
+				<li><a href="#table_fields">Table Fields</a></li>
+				<li><a href="#tables">Tables List</a></li>
+				<li><a href="#count">Count Rows</a></li>
+				<li><a href="#history">History</a></li>
+			</ul>
+		</li>
+		<li><a href="#history_add">History Methods</a>
+			<ul class="nav">
+				<li><a href="#history_add">Add</a></li>
+				<li><a href="#history_get_all_history">Get All History</a></li>
+				<li><a href="#history_get">Get</a></li>
+			</ul>
+		</li>
+		<li><a href="#files_and_sources">Files & Sources</a></li>
+		<!-- <li><a href="#line10">Version History (Changelog)</a></li>
+		<li><a href="#line11">Copyright and license</a></li> -->
+	</ul>
+</nav >
+				</div>
+				<div class="col-md-9">
+					<section class="welcome">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Introduction<hr></h2>
+			<div class="row">
+
+				<div class="col-md-12 full">
+					<div class="intro1">
+						<ul>
+							<li><strong>Item Name : </strong> ThinBuilder</li>
+							<li><strong>Item Version : </strong> v1.0</li>
+							<li><strong>Author  : </strong> <a href="https://github.com/eugene-sukhodolskiy" target="_blank">Eugene Sukhodolskiy</a></li>
+							<li><strong>License : </strong> <a href="https://github.com/eugene-sukhodolskiy/thin-builder/blob/dev/LICENSE" target="_blank">GNU General Public License v3.0</a></li>
+						</ul>
+					</div>
+
+					<hr>
+					<div>
+						<p>Welcome! This is simple layer for abstracting from sql database.</p>
+						<p>You can use this tool with php fury framework or use like single. This project is open source</p>
+						<a href="#getting_started" class="btn btn-primary">Getting Started</a>
+						<a href="#query" class="btn btn-primary">Methods</a>
+
+					</div>
+				</div>
+
+			</div>
+			<!-- end row -->
+		</div>
+	</div>
+</section>
+
+					<section id="getting_started" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Getting Started <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<p>This is module for fury framework, but you can use this like single tool</p>
+
+			<h4>For use like single tool</h4>
+			<p>Include a __autoload.php file and initialization of connect with database. You don't need files: <code class="code">FuryDriver.php</code> and <code class="code">DriverInterface.php</code></p>
+			<pre class="brush: php">
+				use \ThinBuilder\ThinBuilder;
+
+				$tb = new ThinBuilder([
+					"dblib" => "mysql", // Library for working with DB
+					"host" => "127.0.0.1", // host of DB
+					"dbname" => "thin-builder", // Name of DB
+					"charset" => "utf8", // Charset of DB
+					"user" => "root", // Input username of DB
+					"password" => "" // Enter the password
+				]);
+
+				// and you can use Thin Builder
+			</pre>
+
+			<h4>For use with fury framework</h4>
+			<p>Place the <code class="code">ThinBuilder</code> folder to <code class="code">/Fury/Modules/</code> and place the <code class="code">FuryDriver.php</code> file to <code class="code">/Fury/Drivers/</code>. That all, you can use this</p>
+
+			<pre class="brush: php">
+				use \Fury\Modules\ThinBuilder\ThinBuilder;
+
+				$tb = new ThinBuilder(FCONF['db'], new FuryDriver());
+
+				// and you can use Thin Builder
+			</pre>
+
+			<div class="intro2 clearfix">
+				<p><i class="fa fa-exclamation-triangle"></i> You need change namespace from <code class="code">namespace ThinBuilder</code> to <code class="code">namepace Fury\Modules\ThinBuilder</code></p>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+					<section id="query" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Query Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+	<p>Send raw sql query and get result. Logging sql queries to history. Return result of query</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function query(String $sql, [String $fetch_func = '', Int $fetch_func_param = NULL]);</pre>
+	<code class="code">String $sql</code> - Raw sql string. <br>
+	<code class="code">String $fetch_func</code> - String name of handler function. Example <code class="code">"fetch", "fetchAll", ...</code> <br>
+	<code class="code">Int $fetch_func_param</code> - an example <code class="code">"PDO::FETCH_ASSOC"</code>
+
+	<h4>Example:</h4>
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$sql = "SELECT * FROM `table_name`";
+		$result = $tb -> query($sql, 'fetchAll', \PDO::FETCH_ASSOC);
+		var_dump($result);
+
+		/* Result
+		[
+			["col_name1" => "column value", "col_name2" => "some column value"],
+			["col_name1" => "column value", "col_name2" => "some column value"],
+			...
+		]
+		*/</pre>
+
+</section>
+					<section id="select" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Select Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+	<p>Select rows from db table</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function select(String $tablename, [ $fields = [], $where = [], $order_fields = [], String $order_sort = 'DESC', $limit = [] ]);</pre>
+	<code class="code">String $tablename</code> - Name of the table we are working with <br>
+	<code class="code">Array $fields</code> - Needed fields <br>
+	<code class="code">Array $where</code> - Array with conditions <br>
+	<code class="code">Array $order_fields</code> - Fields of sort <br>
+	<code class="code">String $order_sort</code> - Type of sort <code class="code">"ASC"</code> OR <code class="code">"DESC"</code> <br>
+	<code class="code">Array $limit</code> - Limits for selecting <br>
+	<code class="code">@return Array</code> - Result of selecting
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$table_name = 'users';
+		$fields = ['id', 'email', 'timestamp'];
+		$where = [
+			['name', 'IN', ['John', 'Eugene']]
+		];
+		$orderby = ['name'];
+		$sort = 'ASC';
+		$limit = [0, 10];
+
+		$result = $tb -> select($table_name, $fields, $where, $orderby, $sort, $limit);
+	</pre>
+
+</section>
+					<section id="insert" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Insert Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Insert row to db table</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function insert(String $tablename, Array $data);</pre>
+	<code class="code">String $tablename</code> - Name of the table we are working with <br>
+	<code class="code">Array $data</code> - Data for inserting <br>
+	<code class="code">@return Boolean</code> - Result of working
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$tablename = 'users';
+		$user = [
+			'name' => 'Victor', 
+			'email' => 'victor@gmail.com', 
+			'timestamp' => 'NOW()'
+		];
+
+		$result = $tb -> insert($tablename, $user);</pre>
+
+</section>
+					<section id="update" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Update Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Update data in table rows</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function update(String $tablename, Array $data, $where = []);</pre>
+	<code class="code">String $tablename</code> - Name of the table we are working with <br>
+	<code class="code">Array $data</code> - New data for row <br>
+	<code class="code">Array $where</code> - Array with conditions. What rows we want to change <br>
+	<code class="code">@return Boolean</code> - Result of updating
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$tablename = 'users';
+		$data = ['name' => 'Jan'];
+		$where = [
+			['name', '=', 'John'], 
+			'OR', 
+			['id', 2]
+		];
+
+		$result = $tb -> update($tablename, $data, $where);</pre>
+
+</section>
+					<section id="delete" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Delete Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Delete selected rows from db table</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function delete(String $tablename, Array $where = []);</pre>
+	<code class="code">String $tablename</code> - Name of the table we are working with <br>
+	<code class="code">Array $where</code> - Array with conditions. What rows we want to delete <br>
+	<code class="code">@return Boolean</code> - Result of deleting
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$tablename = 'users';
+		$where = [
+			['email', 'victor@gmail.com']
+		];
+
+		$result = $tb -> delete($tablename, $where);</pre>
+
+</section>
+					<section id="drop" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Drop Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Drop selected table from db</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function drop(String $tablename);</pre>
+	<code class="code">String $tablename</code> - Name of the table what we want to drop <br>
+	<code class="code">@return Boolean</code> - Result of dropping
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$tablename = 'users';
+		$result = $tb -> drop($tablename);</pre>
+
+</section>
+					<section id="truncate" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Truncate Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Truncate selected db table</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function truncate(String $tablename);</pre>
+	<code class="code">String $tablename</code> - Name of the table what we want to truncate<br>
+	<code class="code">@return Boolean</code> - Result of truncating
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$tablename = 'users';
+		$result = $tb -> truncate($tablename);</pre>
+
+</section>
+					<section id="create_table" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Create Table Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Create new table in to db</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function create_table(String $tablename, Array $fields, String $primary_key, String $engine = 'InnoDB');</pre>
+	<code class="code">String $tablename</code> - Name of new table<br>
+	<code class="code">Array $fields</code> - Array with fields and fields<br>
+	<code class="code">String $primary_key</code> - Name of field what we want selecting like primary key<br>
+	<code class="code">String $engine</code> - Name of db engine<br>
+	<code class="code">@return Boolean</code> - Result of creating
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$tablename = 'users';
+		$fields = [
+		'id' => [
+			'type' => 'INT',
+			'length' => 11,
+			'auto_increment' => true
+		],
+		'name' => [
+			'type' => 'VARCHAR',
+			'length' => 100,
+			'default' => 'Unknown',
+			'can_be_null' => false
+		],
+		'email' => [
+			'type' => 'VARCHAR',
+			'length' => 255,
+			'can_be_null' => false,
+		],
+		'timestamp' => [
+			'type' => 'TIMESTAMP',
+			'default' => 'NOW()'
+		]
+	];
+
+	$primary_key = 'id';
+
+	$result = $tb -> create_table($tablename, $fields, $primary_key);</pre>
+
+</section>
+					<section id="table_fields" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Table Fields Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Get table fields</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function table_fields(String $tablename);</pre>
+	<code class="code">String $tablename</code> - Name of the table we are working with<br>
+	<code class="code">@return Boolean</code> - Result of creating
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$tablename = 'users';
+		$result = $tb -> table_fields($tablename);</pre>
+
+</section>
+					<section id="tables" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Tables Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>List of table from in database</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function tables();</pre>
+	<code class="code">@return Array</code> - List of tables
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$result = $tb -> tables();</pre>
+
+</section>
+					<section id="count" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Count Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Get count rows in selected db table</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function count(String $tablename, Array $where = []);</pre>
+	<code class="code">String $tablename</code> - Selected db table<br>
+	<code class="code">Array $where</code> - Array with conditions<br>
+	<code class="code">@return Int</code> - Count rows in table
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$tablename = 'users';
+
+		// If you need number of users with name "Victor"
+		$where = [
+			['name', 'victor']
+		];
+
+		$result = $tb -> count($tablename, $where);</pre>
+
+</section>
+					<section id="history" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">History Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Get history object</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function history();</pre>
+	<code class="code">@return History</code> - Object of history
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$tablename = 'users';
+
+		$tb -> select($tablename);
+		$tb -> delete($tablename, [
+			['id', 2], 'AND', ['id', 4]
+		]);
+
+		$result = $tb -> history() -> get_all_history();
+		var_dump($result);</pre>
+
+</section>
+					<section id="history_add" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">History::add Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Log result of sql request to history list</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function add(String $sql, Mixed $result)</pre>
+	<code class="code">String $sql</code> - SQL string of request <br>
+	<code class="code">Mixed $result</code> - Result of request <br>
+	<code class="code">@return Void</code>
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$sql = "SELECT * FROM `some_table`";
+		$result = $tb -> query($sql);
+		$tb -> history() -> add($sql, $result);</pre>
+
+</section>
+					<section id="history_get_all_history" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">History::get_all_history Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Get All History about sql requests with results</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function get_all_history()</pre>
+	<code class="code">@return Void</code>
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$history_log = $tb -> history() -> get_all_history();
+		var_dump($history_log);</pre>
+
+</section>
+					<section id="history_get" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">History::get Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Get result of sql request by sql string</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function get(String $sql)</pre>
+	<code class="code">String $sql</code> - SQL string of request <br>
+	<code class="code">@return Mixed</code> - Result of sql request
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$result_of_request = $tb -> history() -> get("SELECT * FROM `some_table`");
+		var_dump($result_of_request)</pre>
+
+</section>
+
+					<section id="files_and_sources" class="section">
+
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Files & Sources <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<strong>Files</strong>
+
+			<p>All files in project.</p>
+
+			<ul>
+				<li>1. ThinBuilder/ThinBuilder.php - Primary php class</li>
+				<li>2. ThinBuilder/ThinBuilderInterface.php - Interface for primary class</li>
+				<li>3. ThinBuilder/ThinBuilderProcessing.php - Class with side processing for primary class</li>
+				<li>4. ThinBuilder/History.php - Service class for realization simple log of history of queries</li>
+				<li>5. ThinBuilder/DriverInterface.php - Interface for creating driver for integrate ThinBuilder to other scripts</li>
+				<li>6. __autoload.php - Autoload file for easy include ThinBuilder to your project</li>
+				<li>7. example.php - Examples using ThinBuilder</li>
+				<li>8. FuryDriver.php - Driver for integrate ThinBuilder to Fury framework</li>
+				<li>9. utils.php - Side utils for debuging and other</li>
+				<li>10. index.php - Just index.php</li>
+				<li>11. project.json - Side file with info about project. You can remove this</li>
+			</ul>
+		</div>
+	</div>
+</section>
+
+
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end wrapper -->
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/retina.js"></script>
+	<script src="js/jquery.fitvids.js"></script>
+	<script src="js/wow.js"></script>
+	<script src="js/jquery.prettyPhoto.js"></script>
+
+	<!-- CUSTOM PLUGINS -->
+	<script src="js/custom.js"></script>
+	<script src="js/main.js"></script>
+
+	<script src="js/syntax-highlighter/scripts/shCore.js"></script>
+	<script src="js/syntax-highlighter/scripts/shBrushXml.js"></script>
+	<script src="js/syntax-highlighter/scripts/shBrushCss.js"></script>
+	<script src="js/syntax-highlighter/scripts/shBrushJScript.js"></script>
+	<script src="js/syntax-highlighter/scripts/shBrushPhp.js"></script>
+
+</body>
+<!-- THEME GIT https://github.com/surjithctly/documentation-html-template -->
+</html>

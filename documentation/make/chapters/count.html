@@ -1,0 +1,32 @@
+<section id="count" class="section">
+	<div class="row">
+		<div class="col-md-12 left-align">
+			<h2 class="dark-text">Count Method <a href="#top">#back to top</a><hr></h2>
+		</div>
+	</div>
+
+
+	<p>Get count rows in selected db table</p>
+
+	<h4>Prototype:</h4>
+	<pre class="brush: php">
+		public function count(String $tablename, Array $where = []);</pre>
+	<code class="code">String $tablename</code> - Selected db table<br>
+	<code class="code">Array $where</code> - Array with conditions<br>
+	<code class="code">@return Int</code> - Count rows in table
+
+	<h4>Example:</h4>
+
+	<pre class="brush: php">
+		$tb = new ThinBuilder(...);
+
+		$tablename = 'users';
+
+		// If you need number of users with name "Victor"
+		$where = [
+			['name', 'victor']
+		];
+
+		$result = $tb -> count($tablename, $where);</pre>
+
+</section>
